@@ -20,7 +20,8 @@ a { color: inherit; text-decoration: none; }
 img, video, iframe { display: block; max-width: 100%; }
 h1, h2, h3, p, blockquote { margin: 0; }
 button { font: inherit; }
-.shell { width: min(1312px, calc(100% - 128px)); }
+/* Sections own the page gutters; nested shells must not subtract them again. */
+.shell { width: min(1312px, 100%); }
 
 .hero { position: relative; display: flex; min-height: 900px; padding: 64px 64px 52px; overflow: hidden; justify-content: flex-start; background: linear-gradient(180deg, #f8fbff 0%, #fff 100%); }
 .hero__content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 32px; margin-inline: auto; }
@@ -29,9 +30,9 @@ button { font: inherit; }
 .hero__copy { display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; text-align: center; }
 .eyebrow { padding: 16px; border-radius: 999px; background: var(--surface-blue); color: var(--text); font-size: 18px; font-weight: 600; line-height: 18px; }
 .hero h1 { font-size: 52px; font-weight: 600; letter-spacing: -.045em; line-height: 56px; text-wrap: balance; }
-.outcomes { display: flex; justify-content: center; gap: 24px; width: 100%; }
+.outcomes { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; width: 100%; }
 .outcomes p { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 32px; border-radius: 30px; background: var(--surface); font-size: 24px; font-weight: 600; line-height: 56px; letter-spacing: -.045em; white-space: nowrap; }
-.check { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: var(--text); color: #fff; font-size: 14px; }
+.check { display: block; flex: 0 0 24px; width: 24px; height: 24px; }
 .hero__description { width: min(934px, 100%); color: rgb(43 46 55 / 68%); font-size: 20px; font-weight: 600; line-height: 27px; text-wrap: balance; }
 .primary-cta { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 66px; padding: 0 28px; border-radius: 15px; color: #fff; background: radial-gradient(ellipse at center, #178ef1 4%, var(--primary-flow) 90%); box-shadow: 0 18px 36px var(--blue-shadow); font-size: 20px; font-weight: 600; line-height: 22px; transition: transform .2s ease, box-shadow .2s ease; }
 .primary-cta:hover { transform: translateY(-2px); box-shadow: 0 22px 42px rgb(20 102 210 / 22%); }
@@ -39,21 +40,15 @@ button { font: inherit; }
 .primary-cta img { width: 32px; height: 32px; filter: brightness(0) invert(1); }
 .hero__gradient { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; width: 100%; height: 373px; object-fit: cover; pointer-events: none; }
 
-.booking { display: flex; flex-direction: column; align-items: center; gap: 42px; min-height: 868px; padding: 112px 160px; background: #fff; }
 .section-heading { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.section-label { color: var(--primary-electric); font-family: var(--mono); font-size: 12px; font-weight: 600; line-height: 18px; letter-spacing: .08em; }
-.booking__heading { gap: 14px; }
-.booking h2 { font-size: 44px; font-weight: 600; line-height: 50px; letter-spacing: -.04em; }
-.calendar-shell { width: min(1120px, calc(100vw - 64px)); height: 520px; overflow: hidden; border: 1px solid var(--border); border-radius: 30px; background: var(--surface); box-shadow: 0 28px 70px rgb(20 102 210 / 10%); }
-.calendar-shell iframe { width: 100%; height: 100%; border: 0; background: #fff; }
 
 .problems, .solutions, .proof { display: flex; flex-direction: column; align-items: center; background: #fff; }
-.problems { gap: 80px; min-height: 1468px; padding: 112px 64px; }
+.problems { gap: 48px; padding: 112px 64px; }
 .problems__heading { gap: 16px; width: min(1050px, 100%); }
 .problems__heading h2 { font-size: 48px; font-weight: 600; line-height: 53px; letter-spacing: -.045em; text-wrap: balance; }
 .problems__heading p { max-width: 1000px; color: var(--muted); font-size: 18px; line-height: 27px; text-wrap: balance; }
-.problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.problem-card { display: flex; flex-direction: column; justify-content: space-between; min-height: 425px; padding: 28px; border-radius: 28px; background: var(--surface); }
+.problem-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.problem-card { display: flex; flex-direction: column; gap: 24px; padding: 28px; border-radius: 28px; background: var(--surface); }
 .problem-card > div { display: flex; flex-direction: column; gap: 18px; }
 .problem-card h3, .solution-card h3 { font-size: 24px; font-weight: 600; line-height: 30px; letter-spacing: -.025em; }
 .problem-card p, .solution-card p { color: var(--muted); font-size: 18px; line-height: 27px; }
@@ -63,17 +58,17 @@ button { font: inherit; }
 .problem-icon img { width: 36px; height: 36px; color: var(--text); }
 .section-cta { flex: 0 0 auto; }
 
-.solutions { gap: 80px; min-height: 1980px; padding: 112px 64px; }
+.solutions { gap: 48px; padding: 112px 64px; }
 .solutions__heading { gap: 22px; width: min(1312px, 100%); }
 .solutions__heading h2 { max-width: 900px; color: var(--primary-electric); font-size: 52px; font-weight: 500; line-height: 57px; letter-spacing: -.045em; text-wrap: balance; }
 .solutions__heading p { max-width: 820px; color: var(--muted); font-size: 18px; line-height: 27px; text-wrap: balance; }
-.solution-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.solution-card { display: flex; flex-direction: column; justify-content: space-between; min-height: 422px; padding: 34px; border: 1px solid #eef4fb; border-radius: 28px; background: #fff; box-shadow: 0 2px 3px var(--blue-shadow); }
+.solution-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.solution-card { display: flex; flex-direction: column; gap: 24px; padding: 34px; border: 1px solid #eef4fb; border-radius: 28px; background: #fff; box-shadow: 0 2px 3px var(--blue-shadow); }
 .solution-card > div { display: flex; flex-direction: column; gap: 16px; }
 .solution-icon { background: linear-gradient(180deg, #e8f7ff, #74c7ff); color: var(--primary); box-shadow: 0 6px 16px rgb(66 173 253 / 18%); }
 .solution-icon img { width: 38px; height: 38px; color: var(--primary); }
 
-.proof { gap: 32px; min-height: 1864px; padding: 96px 64px 0; }
+.proof { gap: 32px; padding: 96px 64px 0; }
 .proof-heading { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; font-size: 48px; font-weight: 600; line-height: 54px; letter-spacing: -.045em; }
 .heart { display: grid; width: 54px; height: 54px; place-items: center; border-radius: 14px; color: #fff; background: linear-gradient(135deg, #ff729b, #f42368); box-shadow: 0 6px 18px rgb(244 35 104 / 28%); font-size: 28px; transform: rotate(7deg); }
 .result-story { display: flex; justify-content: space-between; min-height: 520px; padding: 36px; border: 1px solid var(--border); border-radius: 22px; overflow: hidden; background: #fff url("./assets/results-bg.jpg") center bottom / 100% 68% no-repeat; }
@@ -103,7 +98,7 @@ button { font: inherit; }
 .quote-icon { width: 32px; height: 32px; }
 .proof-spacer { width: min(1312px, calc(100% - 128px)); height: 142px; flex: 0 0 auto; }
 
-.footer { display: flex; flex-direction: column; align-items: center; gap: 68px; min-height: 1450px; padding: 64px 85px 0; overflow: hidden; color: #fff; background: var(--primary); }
+.footer { display: flex; flex-direction: column; align-items: center; gap: 48px; padding: 64px 85px 32px; overflow: hidden; color: #fff; background: var(--primary); }
 .footer__divider, .footer__nav, .footer__legal { width: min(1200px, 100%); }
 .footer__divider { height: 1px; flex: 0 0 auto; background: rgb(255 255 255 / 30%); }
 .footer__nav { display: flex; flex-direction: column; gap: 44px; }
@@ -122,12 +117,11 @@ button { font: inherit; }
 .telegram-card small { color: rgb(255 255 255 / 82%); font-size: 13px; line-height: 18px; }
 .footer__column { display: flex; width: 150px; flex-direction: column; gap: 18px; }
 .footer__column a { color: rgb(255 255 255 / 91%); font-size: 15px; line-height: 20px; }
-.footer__legal { display: flex; align-items: center; justify-content: space-between; padding-top: 180px; color: rgb(255 255 255 / 88%); font-size: 14px; line-height: 20px; }
+.footer__legal { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid rgb(255 255 255 / 30%); color: rgb(255 255 255 / 88%); font-size: 14px; line-height: 20px; }
 .footer__legal nav { display: flex; align-items: center; gap: 28px; }
 .footer a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 1023px) {
-  .shell { width: calc(100% - 64px); }
   .hero { min-height: 932px; padding: 32px 32px 52px; }
   .hero__content { gap: 32px; }
   .hero h1 { font-size: 40px; line-height: 45px; }
@@ -136,26 +130,20 @@ button { font: inherit; }
   .hero__description { font-size: 18px; line-height: 25px; }
   .primary-cta { min-height: 60px; }
 
-  .booking { min-height: 1082px; padding: 96px 32px; }
-  .booking h2 { font-size: 40px; line-height: 45px; }
-  .calendar-shell { width: 100%; height: 720px; }
-
-  .problems { min-height: 1568px; padding: 96px 32px; gap: 64px; }
+  .problems { padding: 96px 32px; gap: 40px; }
   .problems__heading h2 { font-size: 40px; line-height: 45px; }
-  .problem-grid { gap: 20px; }
-  .problem-card { min-height: 500px; padding: 24px; }
+  .problem-card { padding: 24px; }
   .problem-card h3, .solution-card h3 { font-size: 20px; line-height: 25px; }
   .problem-card p, .solution-card p { font-size: 16px; line-height: 25px; }
   .problem-icon, .solution-icon { width: 60px; height: 60px; border-radius: 16px; }
   .problem-icon img, .solution-icon img { width: 32px; height: 32px; }
 
-  .solutions { min-height: 2014px; padding: 96px 32px; gap: 64px; }
+  .solutions { padding: 96px 32px; gap: 40px; }
   .solutions__heading h2 { font-size: 40px; line-height: 45px; }
   .solutions__heading p { font-size: 16px; line-height: 26px; }
-  .solution-grid { gap: 20px; }
-  .solution-card { min-height: 470px; padding: 24px; }
+  .solution-card { padding: 24px; }
 
-  .proof { min-height: 2730px; padding: 96px 32px 0; gap: 48px; }
+  .proof { padding: 96px 32px 0; gap: 48px; }
   .proof-heading { font-size: 40px; line-height: 45px; }
   .heart { width: 48px; height: 48px; }
   .result-story { flex-direction: column; gap: 24px; min-height: 900px; padding: 32px; }
@@ -170,16 +158,20 @@ button { font: inherit; }
   .testimonial-card blockquote { font-size: 22px; line-height: 27px; }
   .proof-spacer { width: calc(100% - 64px); height: 100px; }
 
-  .footer { min-height: 901px; padding: 64px 32px 0; gap: 56px; }
+  .footer { padding: 64px 32px 32px; gap: 40px; }
   .footer__columns { flex-wrap: wrap; gap: 44px 0; }
   .footer__reach { width: 46%; }
   .telegram-card { width: 100%; }
   .footer__column { width: 20%; }
-  .footer__legal { padding-top: 96px; }
+  .footer__legal { flex-wrap: wrap; }
+}
+
+@media (max-width: 767px) {
+  .hero, .problems, .solutions, .proof, .footer { padding-inline: 20px; }
+  .outcomes p, .problem-card, .solution-card, .result-story, .testimonial-card { padding-inline: 20px; }
 }
 
 @media (max-width: 639px) {
-  .shell { width: calc(100% - 40px); }
   .hero { min-height: 1040px; padding: 28px 20px 52px; }
   .brand--hero img { width: 254px; height: 28px; }
   .hero__copy { gap: 20px; }
@@ -190,31 +182,27 @@ button { font: inherit; }
   .primary-cta { width: 100%; min-height: 54px; padding: 0 20px; font-size: 16px; }
   .hero__gradient { height: 350px; }
 
-  .booking { min-height: 1040px; padding: 72px 20px; gap: 40px; }
-  .booking h2 { font-size: 30px; line-height: 36px; }
-  .calendar-shell { height: 760px; border-radius: 28px; }
-
-  .problems { min-height: 2072px; padding: 72px 20px; gap: 40px; }
+  .problems { padding: 72px 20px; gap: 32px; }
   .problems__heading { gap: 28px; }
   .problems__heading h2 { font-size: 32px; line-height: 37px; }
   .problems__heading p { font-size: 16px; line-height: 23px; }
   .problem-grid { grid-template-columns: 1fr; gap: 16px; }
-  .problem-card { min-height: 0; padding: 24px; gap: 28px; }
+  .problem-card { padding: 24px 20px; }
   .problem-card > div { gap: 16px; }
   .problem-card h3, .solution-card h3 { font-size: 20px; line-height: 25px; }
   .problem-card p, .solution-card p { font-size: 15px; line-height: 23px; }
 
-  .solutions { min-height: 3038px; padding: 72px 20px; gap: 40px; }
+  .solutions { padding: 72px 20px; gap: 32px; }
   .solutions__heading { gap: 20px; }
   .solutions__heading h2 { font-size: 32px; line-height: 39px; }
   .solutions__heading p { font-size: 15px; line-height: 23px; }
   .solution-grid { grid-template-columns: 1fr; gap: 16px; }
-  .solution-card { min-height: 0; padding: 24px; gap: 28px; }
+  .solution-card { padding: 24px 20px; }
 
-  .proof { min-height: 4083px; padding: 72px 20px 0; gap: 32px; }
+  .proof { padding: 72px 20px 0; gap: 32px; }
   .proof-heading { flex-wrap: wrap; gap: 8px; max-width: 350px; font-size: 30px; line-height: 37px; text-align: center; }
   .heart { width: 44px; height: 44px; }
-  .result-story { min-height: 954px; padding: 25px; gap: 24px; }
+  .result-story { min-height: 954px; padding: 25px 20px; gap: 24px; }
   .result-copy { min-height: 490px; }
   .result-copy blockquote { font-size: 19px; line-height: 24px; }
   .metrics { gap: 8px 20px; }
@@ -222,21 +210,21 @@ button { font: inherit; }
   .metrics span { font-size: 12px; line-height: 17px; }
   .video-wrap { height: 390px; }
   .testimonial-grid { grid-template-columns: 1fr; gap: 16px; }
-  .testimonial-card { min-height: 430px; padding: 24px; }
+  .testimonial-card { min-height: 430px; padding: 24px 20px; }
   .testimonial-card h3 { font-size: 19px; line-height: 24px; }
   .testimonial-card p { font-size: 14px; line-height: 20px; }
   .testimonial-card blockquote { font-size: 22px; line-height: 27px; }
   .proof-spacer { width: calc(100% - 40px); height: 90px; }
 
-  .footer { min-height: 1017px; padding: 72px 20px 0; gap: 44px; }
-  .footer__brand-row { gap: 20px; }
+  .footer { padding: 72px 20px 32px; gap: 36px; }
+  .footer__brand-row { flex-wrap: wrap; gap: 20px; }
   .footer__logo { width: 150px; }
   .socials { gap: 10px; }
   .socials a { width: 42px; height: 42px; }
   .footer__columns { gap: 36px 0; }
   .footer__reach { width: 100%; }
   .footer__column { width: 50%; }
-  .footer__legal { align-items: flex-start; flex-direction: column; gap: 28px; padding-top: 72px; }
+  .footer__legal { align-items: flex-start; flex-direction: column; gap: 24px; }
   .footer__legal nav { align-items: flex-start; flex-direction: column; gap: 16px; }
 }
 
