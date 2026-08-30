@@ -49,10 +49,13 @@ button { font: inherit; }
 .problems__heading p { max-width: 1000px; color: var(--muted); font-size: 18px; line-height: 27px; text-wrap: balance; }
 .problem-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .problem-card { display: flex; flex-direction: column; gap: 24px; padding: 28px; border-radius: 28px; background: var(--surface); }
-.problem-card > div { display: flex; flex-direction: column; gap: 18px; }
+.problem-card > div { display: flex; flex-direction: column; gap: 16px; }
 .problem-card h3, .solution-card h3 { font-size: 24px; font-weight: 600; line-height: 30px; letter-spacing: -.025em; }
-.problem-card p, .solution-card p { color: var(--muted); font-size: 18px; line-height: 27px; }
-.problem-card p + p, .solution-card p + p { margin-top: 4px; }
+/* Native outside markers keep wrapped lines aligned and preserve list semantics. */
+.card-points { display: grid; gap: 12px; margin: 0; padding: 0; padding-inline-start: 1.1em; list-style: disc outside; color: var(--muted); font-size: 18px; line-height: 27px; }
+.card-points li { padding-inline-start: .3em; }
+.card-points li::marker { color: var(--text); font-size: .8em; }
+.solution-card .card-points li::marker { color: var(--primary-electric); }
 .problem-icon, .solution-icon { display: grid; flex: 0 0 auto; width: 75px; height: 75px; place-items: center; border-radius: 18px; }
 .problem-icon { background: #f9fbff; box-shadow: 0 2px 3px var(--blue-shadow); }
 .problem-icon img { width: 36px; height: 36px; color: var(--text); }
@@ -134,7 +137,7 @@ button { font: inherit; }
   .problems__heading h2 { font-size: 40px; line-height: 45px; }
   .problem-card { padding: 24px; }
   .problem-card h3, .solution-card h3 { font-size: 20px; line-height: 25px; }
-  .problem-card p, .solution-card p { font-size: 16px; line-height: 25px; }
+  .card-points { font-size: 16px; line-height: 25px; }
   .problem-icon, .solution-icon { width: 60px; height: 60px; border-radius: 16px; }
   .problem-icon img, .solution-icon img { width: 32px; height: 32px; }
 
@@ -190,7 +193,7 @@ button { font: inherit; }
   .problem-card { padding: 24px 20px; }
   .problem-card > div { gap: 16px; }
   .problem-card h3, .solution-card h3 { font-size: 20px; line-height: 25px; }
-  .problem-card p, .solution-card p { font-size: 15px; line-height: 23px; }
+  .card-points { gap: 10px; font-size: 15px; line-height: 23px; }
 
   .solutions { padding: 72px 20px; gap: 32px; }
   .solutions__heading { gap: 20px; }

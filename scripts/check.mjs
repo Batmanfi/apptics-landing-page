@@ -46,4 +46,19 @@ for (const [, id] of html.matchAll(/href="#([^\"]+)"/g)) {
   if (!html.includes(`id="${id}"`)) throw new Error(`Broken section link: #${id}`);
 }
 
+// Each revised card uses a real list, not text bullets or manual line breaks.
+const copyCards = [...html.matchAll(/<article class="(problem-card|solution-card)">([\s\S]*?)<\/article>/g)];
+const expectedPointCounts = [3, 3, 3, 3, 3, 2, 2, 2, 3, 3];
+if (copyCards.length !== expectedPointCounts.length) throw new Error("Expected four problem cards and six solution cards");
+for (const [index, [, className, markup]] of copyCards.entries()) {
+  const expectedClass = index < 4 ? "problem-card" : "solution-card";
+  const lists = [...markup.matchAll(/<ul class="card-points">([\s\S]*?)<\/ul>/g)];
+  if (className !== expectedClass || lists.length !== 1) throw new Error(`Missing semantic bullet list in card ${index + 1}`);
+  const points = [...lists[0][1].matchAll(/<li>([^<]+)<\/li>/g)];
+  if (points.length !== expectedPointCounts[index] || points.some(([, text]) => !text.trim())) {
+    throw new Error(`Unexpected or empty bullet points in card ${index + 1}`);
+  }
+  if (/[•·]|<br\b|<p\b/.test(markup)) throw new Error(`Card ${index + 1} must use list items instead of manual bullets or paragraphs`);
+}
+
 console.log("Static checks passed");
